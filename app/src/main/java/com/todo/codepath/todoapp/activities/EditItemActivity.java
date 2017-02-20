@@ -1,10 +1,13 @@
-package com.todo.codepath.todoapp;
+package com.todo.codepath.todoapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+
+import com.todo.codepath.todoapp.R;
+
 
 public class EditItemActivity extends AppCompatActivity {
 
