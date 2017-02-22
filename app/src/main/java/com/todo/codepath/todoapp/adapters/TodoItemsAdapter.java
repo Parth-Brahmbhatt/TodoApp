@@ -11,11 +11,9 @@ import android.widget.TextView;
 import com.todo.codepath.todoapp.R;
 import com.todo.codepath.todoapp.db.TodoItems;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
-/**
- * Created by parth on 2/21/17.
- */
 
 public class TodoItemsAdapter extends ArrayAdapter<TodoItems> {
 
@@ -35,8 +33,11 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItems> {
 
         TextView itemNameTV = (TextView) convertView.findViewById(R.id.tvName);
         TextView priorityTV = (TextView) convertView.findViewById(R.id.tvPriority);
+        TextView completeByTV = (TextView) convertView.findViewById(R.id.tvCompleteByDate);
 
         itemNameTV.setText(item.getItemName());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        completeByTV.setText(dateFormat.format(item.getCompleteByDate()));
         priorityTV.setText(item.getPriority());
         return convertView;
     }
