@@ -20,7 +20,7 @@ public class TodoItems extends BaseModel {
     String priority;
 
     @Column
-    Date creationDate;
+    Date completeByDate;
 
     public TodoItems withId(int identity) {
         this.id = identity;
@@ -37,8 +37,8 @@ public class TodoItems extends BaseModel {
         return this;
     }
 
-    public TodoItems withCreationDate(Date createDate) {
-        this.creationDate = createDate;
+    public TodoItems withCompleteByDate(Date completeByDate) {
+        this.completeByDate = completeByDate;
         return this;
     }
 
@@ -54,14 +54,17 @@ public class TodoItems extends BaseModel {
         return priority;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getCompleteByDate() {
+        return this.completeByDate;
     }
 
     @Override
     public String toString() {
-        return this.itemName;
+        return "TodoItems{" +
+                "id=" + id +
+                ", itemName='" + itemName + '\'' +
+                ", priority='" + priority + '\'' +
+                ", completeByDate=" + completeByDate +
+                '}';
     }
-
-
 }

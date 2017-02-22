@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.lvAddedItems = (ListView) findViewById(R.id.lvAddedItems);
 
-        //FlowManager.getContext().deleteDatabase(TodoDatabase.NAME+".db");
+        // FlowManager.getContext().deleteDatabase(TodoDatabase.NAME+".db");
         this.items = readAllItems();
 
         this.itemsAdapter = new TodoItemsAdapter(this, 0, items);
@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         setupListViewClickListener();
     }
 
+    /**
+     * TODO move listener to adapter
+     */
     private void setupListViewClickListener() {
         lvAddedItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -47,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
                 TodoItems todoItems = items.get(position);
+                // TODO, figure out a way to pass complex objects in intent.
                 intent.putExtra(EditItemActivity.TEXT, todoItems.getItemName());
                 intent.putExtra(EditItemActivity.PRIORITY, todoItems.getPriority());
+                intent.putExtra(EditItemActivity.COMPLETE_BY_DATE, todoItems.getCompleteByDate().getTime());
                 intent.putExtra(EditItemActivity.POSITION, position);
                 startActivityForResult(intent, REQUEST_CODE);
             }
@@ -59,17 +64,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            String text = data.getExtras().getString(EditItemActivity.TEXT);
-            String priority = data.getExtras().getString(EditItemActivity.PRIORITY);
+            String text = data.getStringExtra(EditItemActivity.TEXT);
+            String priority = data.getStringExtra(EditItemActivity.PRIORITY);
+            Date completeByDate = new Date(data.getLongExtra(EditItemActivity.COMPLETE_BY_DATE, new Date().getTime()));
             int position = data.getExtras().getInt(EditItemActivity.POSITION, -1);
+
             TodoItems item = null;
             if(position == -1) {
-                item = new TodoItems().withId(itemsAdapter.getCount()).withCreationDate(new Date());
+                item = new TodoItems().withId(itemsAdapter.getCount());
                 itemsAdapter.add(item);
             } else {
                 item = items.get(position);
             }
-            item = item.withItemName(text).withPriority(priority);
+            item = item.withItemName(text).withPriority(priority).withCompleteByDate(completeByDate);
             saveOrUpdate(item);
             itemsAdapter.notifyDataSetChanged();
         }
@@ -77,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Long click will delete the todo item.
+     *
+     * TODO: Move listeners to adapter it self
      */
     private void setupListViewLongClickListener() {
         lvAddedItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
