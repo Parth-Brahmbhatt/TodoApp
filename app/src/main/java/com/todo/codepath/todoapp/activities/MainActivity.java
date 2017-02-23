@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.lvAddedItems = (ListView) findViewById(R.id.lvAddedItems);
 
-        // FlowManager.getContext().deleteDatabase(TodoDatabase.NAME+".db");
+        //FlowManager.getContext().deleteDatabase(TodoDatabase.NAME+".db");
         this.items = readAllItems();
 
         this.itemsAdapter = new TodoItemsAdapter(this, 0, items);

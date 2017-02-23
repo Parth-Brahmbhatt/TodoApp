@@ -3,6 +3,9 @@
     <string name="hint">Type todo item...</string>
     <string name="button">Add</string>
     <string name="btnSave">Save</string>
+    <string name="task_name">Task</string>
+    <string name="completion_date">Completion Date</string>
+    <string name="priority">Priority</string>
     <string-array name="priorities">
         <item>High</item>
         <item>Medium</item>

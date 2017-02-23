@@ -10,25 +10,61 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.todo.codepath.todoapp.activities.EditItemActivity">
 
+    <TextView
+        android:text="@string/task_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tvTaskLabel" />
+
     <EditText
         android:id="@+id/etEditItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvTaskLabel"
+        android:layout_alignRight="@+id/dpItemDate"
+        android:layout_alignEnd="@+id/dpItemDate" />
+
+    <TextView
+        android:text="@string/priority"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/tvPriority"
+        android:layout_below="@+id/etEditItem"/>
 
     <Spinner
         android:id="@+id/spPriority"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/tvPriority"
+        android:layout_below="@+id/etEditItem"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@+id/tvPriority"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:entries="@array/priorities"
+        android:gravity="right"
+        android:textAlignment="gravity"/>
+
+    <TextView
+        android:text="@string/completion_date"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/etEditItem"
-        android:layout_marginTop="16dp"
-        android:entries="@array/priorities" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/tvCompleteByDate"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/spPriority"
+        android:layout_centerVertical="true" />
 
     <DatePicker
         android:id="@+id/dpItemDate"
@@ -36,25 +72,16 @@
         android:layout_height="wrap_content"
         android:calendarViewShown="false"
         android:layout_below="@+id/spPriority"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <!--<TimePicker-->
-        <!--android:id="@+id/tpItemTime"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_below="@+id/dpItemDate"-->
-        <!--android:layout_marginTop="16dp" />-->
-
+        android:layout_toRightOf="@+id/tvCompleteByDate"
+        android:layout_toEndOf="@+id/tvCompleteByDate"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/dpItemDate"

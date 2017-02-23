@@ -13,6 +13,7 @@ import com.todo.codepath.todoapp.db.TodoItems;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 
 public class TodoItemsAdapter extends ArrayAdapter<TodoItems> {
@@ -39,6 +40,10 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItems> {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         completeByTV.setText(dateFormat.format(item.getCompleteByDate()));
         priorityTV.setText(item.getPriority());
+
+        List<String> priorities = Arrays.asList(getContext().getResources().getStringArray(R.array.priorities));
+        int priorityIndex = priorities.indexOf(item.getPriority());
+        priorityTV.setTextColor(getContext().getResources().getIntArray(R.array.priorityColors)[priorityIndex]);
         return convertView;
     }
 }

@@ -9,22 +9,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.3"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
         android:id="@+id/tvCompleteByDate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.3"
+        android:layout_weight="0.35"
         android:gravity="center"
-        android:textAlignment="gravity" />
+        android:textAlignment="gravity"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
     <TextView
         android:id="@+id/tvPriority"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.4"
+        android:layout_weight="0.35"
         android:gravity="right"
-        android:textAlignment="gravity"/>
+        android:textAlignment="gravity"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"/>
 
 </LinearLayout>
