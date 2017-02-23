@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         this.itemsAdapter = new TodoItemsAdapter(this, 0, items);
         this.lvAddedItems.setAdapter(this.itemsAdapter);
 
-        this.itemsComparator = new PriorityBasedComparator(getResources().getStringArray(R.array.priorities));
+        this.itemsComparator = new PriorityAndCompletionDateBasedComparator(getResources().getStringArray(R.array.priorities));
+        this.itemsAdapter.sort(itemsComparator);
 
         setupListViewLongClickListener();
         setupListViewClickListener();
@@ -129,17 +130,20 @@ public class MainActivity extends AppCompatActivity {
         item.delete();
     }
 
-    static class PriorityBasedComparator implements Comparator<TodoItems> {
+    static class PriorityAndCompletionDateBasedComparator implements Comparator<TodoItems> {
         List<String> priorities;
-        public PriorityBasedComparator(String[] priorities) {
+        public PriorityAndCompletionDateBasedComparator(String[] priorities) {
             this.priorities = Arrays.asList(priorities);
         }
 
         @Override
         public int compare(TodoItems o1, TodoItems o2) {
-            return ((Integer)this.priorities.indexOf(o1.getPriority())).compareTo(
-                    this.priorities.indexOf(o2.getPriority())
-            );
+            if(o1.getPriority().equals(o2.getPriority())) {
+                return o1.getCompleteByDate().compareTo(o2.getCompleteByDate());
+            } else {
+                return ((Integer) this.priorities.indexOf(o1.getPriority())).compareTo(
+                        this.priorities.indexOf(o2.getPriority()));
+            }
         }
     }
 
