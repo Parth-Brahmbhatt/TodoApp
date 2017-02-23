@@ -12,6 +12,8 @@ import com.todo.codepath.todoapp.R;
 import com.todo.codepath.todoapp.adapters.TodoItemsAdapter;
 import com.todo.codepath.todoapp.db.TodoItems;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvAddedItems;
 
     private final int REQUEST_CODE = 20;
+
+    private Comparator<TodoItems> itemsComparator;
 
 
     @Override
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.itemsAdapter = new TodoItemsAdapter(this, 0, items);
         this.lvAddedItems.setAdapter(this.itemsAdapter);
+
+        this.itemsComparator = new PriorityBasedComparator(getResources().getStringArray(R.array.priorities));
+
         setupListViewLongClickListener();
         setupListViewClickListener();
     }
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
             item = item.withItemName(text).withPriority(priority).withCompleteByDate(completeByDate);
             saveOrUpdate(item);
-            itemsAdapter.notifyDataSetChanged();
+            itemsAdapter.sort(itemsComparator);
         }
     }
 
@@ -94,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 delete(items.get(position));
                 items.remove(position);
-                itemsAdapter.notifyDataSetChanged();
+                itemsAdapter.sort(itemsComparator);
                 return true;
             }
         });
@@ -121,4 +128,19 @@ public class MainActivity extends AppCompatActivity {
     private void delete(TodoItems item) {
         item.delete();
     }
+
+    static class PriorityBasedComparator implements Comparator<TodoItems> {
+        List<String> priorities;
+        public PriorityBasedComparator(String[] priorities) {
+            this.priorities = Arrays.asList(priorities);
+        }
+
+        @Override
+        public int compare(TodoItems o1, TodoItems o2) {
+            return ((Integer)this.priorities.indexOf(o1.getPriority())).compareTo(
+                    this.priorities.indexOf(o2.getPriority())
+            );
+        }
+    }
+
 }
